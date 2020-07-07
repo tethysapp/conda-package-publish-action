@@ -4,6 +4,14 @@
 set -ex
 set -o pipefail
 
+check_if_build_command_exists() {
+    if [ -z ${BUILD_COMMAND+x} ]; then 
+        echo "BUILD COMMAND is unset"
+        exit 1
+    fi
+}
+
+
 go_to_build_dir() {
     if [ ! -z $INPUT_SUBDIR ]; then
         cd $INPUT_SUBDIR
@@ -18,7 +26,7 @@ check_if_meta_yaml_file_exists() {
 }
 
 build_package(){
-    conda build -c conda-forge -c bioconda --output-folder . .
+    $BUILD_COMMAND
     # conda convert -p osx-64 linux-64/*.tar.bz2
 }
 
@@ -28,6 +36,8 @@ upload_package(){
     # anaconda upload --label main osx-64/*.tar.bz2
 }
 
+
+check_if_build_command_exists
 go_to_build_dir
 check_if_meta_yaml_file_exists
 build_package
