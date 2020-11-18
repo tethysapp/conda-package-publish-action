@@ -5,8 +5,11 @@ set -ex
 set -o pipefail
 
 check_if_build_command_exists() {
-    if [ -z ${BUILD_COMMAND+x} ]; then 
-        echo "BUILD COMMAND is unset"
+    FILE=build_command.txt
+    if [ -f "$FILE" ]; then
+        BUILD_COMMAND=`cat $FILE`
+    else 
+        echo "BUILD COMMAND file doesn't exist"
         exit 1
     fi
 }
