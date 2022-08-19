@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:4.7.10
+FROM continuumio/miniconda3:4.12.0
 
 LABEL "repository"="https://github.com/rfun/conda-package-publish-action"
 LABEL "maintainer"="Rohit Khattar <rohitkhattar11@gmail.com>"
