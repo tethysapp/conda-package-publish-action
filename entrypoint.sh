@@ -33,15 +33,27 @@ build_package(){
     # conda convert -p osx-64 linux-64/*.tar.bz2
 }
 
+check_if_upload_command_exists(){
+    FILE2=upload_command.txt
+    if [ -f "$FILE2" ]; then
+        UPLOAD_COMMAND=`cat $FILE2`
+    else 
+        echo "UPLOAD COMMAND file doesn't exist"
+        exit 1
+    fi
+}
 upload_package(){
     export ANACONDA_API_TOKEN=$INPUT_ANACONDATOKEN
-    anaconda upload --force --label main noarch/*.tar.bz2
+    $UPLOAD_COMMAND
+    # anaconda upload --force --label main noarch/*.tar.bz2
     # anaconda upload --label main osx-64/*.tar.bz2
+
 }
 
 
 check_if_build_command_exists
 go_to_build_dir
 check_if_meta_yaml_file_exists
+check_if_upload_command_exists
 build_package
 upload_package
