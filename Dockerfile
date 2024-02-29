@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:4.12.0
+FROM continuumio/miniconda3:23.10.0-1
 # FROM mambaorg/micromamba:1.3.1
 
 
